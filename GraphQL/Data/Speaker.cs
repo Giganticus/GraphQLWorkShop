@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConferencePlanner.GraphQL.Data;
 
@@ -15,4 +16,7 @@ public class Speaker
 
     [StringLength(1000)]
     public string? WebSite { get; set; }
+    
+    public ICollection<SessionSpeaker> SessionSpeakers { get; set; } = 
+        new List<SessionSpeaker>();
 }
