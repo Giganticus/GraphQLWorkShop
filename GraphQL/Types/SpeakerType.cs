@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ConferencePlanner.GraphQL.Data;
 using ConferencePlanner.GraphQL.DataLoader;
+using HotChocolate;
 using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,7 @@ public class SpeakerType : ObjectType<Speaker>
     private class SpeakerResolvers
     {
         public static async Task<IEnumerable<Session>> GetSessionsAsync(
-            Speaker speaker,
+            [Parent] Speaker speaker,
             ApplicationDbContext dbContext,
             SessionByIdDataLoader sessionByIdDataLoader,
             CancellationToken cancellationToken)
