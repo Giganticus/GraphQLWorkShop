@@ -8,7 +8,15 @@ public class ApplicationDbContext : DbContext
         : base(options)
     {
     }
-    
+
+    public DbSet<Session> Sessions { get; set; } = default!;
+
+    public DbSet<Track> Tracks { get; set; } = default!;
+
+    public DbSet<Speaker> Speakers { get; set; } = default!;
+
+    public DbSet<Attendee> Attendees { get; set; } = default!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -26,12 +34,4 @@ public class ApplicationDbContext : DbContext
             .Entity<SessionSpeaker>()
             .HasKey(ss => new { ss.SessionId, ss.SpeakerId });
     }
-
-    public DbSet<Session> Sessions { get; set; } = default!;
-
-    public DbSet<Track> Tracks { get; set; } = default!;
-
-    public DbSet<Speaker> Speakers { get; set; } = default!;
-
-    public DbSet<Attendee> Attendees { get; set; } = default!;
 }

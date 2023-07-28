@@ -15,8 +15,15 @@ public class SpeakerType : ObjectType<Speaker>
     protected override void Configure(IObjectTypeDescriptor<Speaker> descriptor)
     {
         descriptor
+            .ImplementsNode()
+            .IdField(t => t.Id)
+            .ResolveNode((ctx, id) => ctx.DataLoader<SpeakerByIdDataLoader>()
+                .LoadAsync(id, ctx.RequestAborted));
+
+        descriptor
             .Field(t => t.SessionSpeakers)
-            .ResolveWith<SpeakerResolvers>(t => SpeakerResolvers.GetSessionsAsync(default!, default!, default!, default!))
+            .ResolveWith<SpeakerResolvers>(t =>
+                SpeakerResolvers.GetSessionsAsync(default!, default!, default!, default!))
             .UseDbContext<ApplicationDbContext>()
             .Name("sessions");
     }
@@ -33,7 +40,7 @@ public class SpeakerType : ObjectType<Speaker>
                 .Where(s => s.Id == speaker.Id)
                 .Include(s => s.SessionSpeakers)
                 .SelectMany(s => s.SessionSpeakers.Select(t => t.SessionId))
-                .ToArrayAsync(cancellationToken: cancellationToken);
+                .ToArrayAsync(cancellationToken);
 
             return await sessionByIdDataLoader.LoadAsync(sessionIds, cancellationToken);
         }

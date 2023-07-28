@@ -1,0 +1,22 @@
+﻿mutation ScheduleSession {
+  scheduleSession(
+    input: {
+      sessionId: 1
+      trackId: 1
+      startTime: "2020-05-24T15:00:00"
+      endTime: "2021-05-24T15:00:00"
+    }
+  ) {
+    track {
+      name
+    }
+    speakers {
+      name
+    }
+    session {
+      title
+      startTime
+      endTime
+    }
+  }
+}

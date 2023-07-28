@@ -1,0 +1,7 @@
+﻿mutation AddSession {
+  addSession(input:{
+    title:"First Session"
+    abstract:"First Session Abstract",
+    speakerIds: [1] }){
+  session{
+  id}}}

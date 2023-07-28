@@ -1,6 +1,9 @@
 using ConferencePlanner.GraphQL;
 using ConferencePlanner.GraphQL.Data;
 using ConferencePlanner.GraphQL.DataLoader;
+using ConferencePlanner.GraphQL.Sessions;
+using ConferencePlanner.GraphQL.Speakers;
+using ConferencePlanner.GraphQL.Tracks;
 using ConferencePlanner.GraphQL.Types;
 using HotChocolate.Data;
 using Microsoft.AspNetCore.Builder;
@@ -11,10 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddPooledDbContextFactory<ApplicationDbContext>(options => options.UseSqlite("Data Source=conferences.db"))
     .AddGraphQLServer()
-    .AddQueryType<Query>()
+    .AddQueryType(d => d.Name("Query"))
+    .AddTypeExtension<SpeakersQueries>()
     .RegisterDbContext<ApplicationDbContext>(DbContextKind.Pooled)
-    .AddMutationType<Mutation>()
+    .AddMutationType(x => x.Name("Mutation"))
+        .AddTypeExtension<SpeakerMutations>()
+        .AddTypeExtension<SessionMutations>()
+        .AddTypeExtension<TrackMutations>()
     .AddType<SpeakerType>()
+    .AddType<AttendeeType>()
+    .AddType<TrackType>()
+    .AddType<SessionType>()
+    .AddGlobalObjectIdentification()
     .AddDataLoader<SpeakerByIdDataLoader>()
     .AddDataLoader<SessionByIdDataLoader>();
 

@@ -9,28 +9,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.GraphQL.DataLoader;
 
-public class SpeakerByIdDataLoader : BatchDataLoader<int, Speaker>
+public class AttendeeByIdDataLoader : BatchDataLoader<int, Attendee>
 {
     private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
 
-    public SpeakerByIdDataLoader(
+    public AttendeeByIdDataLoader(
         IBatchScheduler batchScheduler,
-        IDbContextFactory<ApplicationDbContext> dbContextFactory,
-        DataLoaderOptions? options = null)
-        : base(batchScheduler, options)
+        IDbContextFactory<ApplicationDbContext> dbContextFactory)
+        : base(batchScheduler)
     {
         _dbContextFactory = dbContextFactory ??
                             throw new ArgumentNullException(nameof(dbContextFactory));
     }
 
-    protected override async Task<IReadOnlyDictionary<int, Speaker>> LoadBatchAsync(
+    protected override async Task<IReadOnlyDictionary<int, Attendee>> LoadBatchAsync(
         IReadOnlyList<int> keys,
         CancellationToken cancellationToken)
     {
         await using var dbContext = await _dbContextFactory.CreateDbContextAsync(cancellationToken);
 
-        return await dbContext.Speakers
-            .Where(x => keys.Contains(x.Id))
+        return await dbContext.Attendees.Where(x => keys.Contains(x.Id))
             .ToDictionaryAsync(x => x.Id, cancellationToken);
     }
 }

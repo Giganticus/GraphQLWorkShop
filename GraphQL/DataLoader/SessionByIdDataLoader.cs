@@ -14,9 +14,9 @@ public class SessionByIdDataLoader : BatchDataLoader<int, Session>
     private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
 
     public SessionByIdDataLoader(
-        IBatchScheduler batchScheduler, 
+        IBatchScheduler batchScheduler,
         IDbContextFactory<ApplicationDbContext> dbContextFactory,
-        DataLoaderOptions? options = null) 
+        DataLoaderOptions? options = null)
         : base(batchScheduler, options)
     {
         _dbContextFactory = dbContextFactory ??
@@ -24,7 +24,7 @@ public class SessionByIdDataLoader : BatchDataLoader<int, Session>
     }
 
     protected override async Task<IReadOnlyDictionary<int, Session>> LoadBatchAsync(
-        IReadOnlyList<int> keys, 
+        IReadOnlyList<int> keys,
         CancellationToken cancellationToken)
     {
         await using var dbContext = await _dbContextFactory.CreateDbContextAsync(cancellationToken);

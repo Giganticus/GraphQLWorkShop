@@ -1,0 +1,5 @@
+﻿mutation AddTrack {
+  addTrack(input:{
+    name:"First Track"}){
+      track{
+        id}}}
