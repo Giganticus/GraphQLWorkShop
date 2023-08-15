@@ -1,4 +1,3 @@
-using ConferencePlanner.GraphQL;
 using ConferencePlanner.GraphQL.Data;
 using ConferencePlanner.GraphQL.DataLoader;
 using ConferencePlanner.GraphQL.Sessions;
@@ -16,6 +15,8 @@ builder.Services
     .AddGraphQLServer()
     .AddQueryType(d => d.Name("Query"))
         .AddTypeExtension<SpeakerQueries>()
+        .AddTypeExtension<SessionQueries>()
+        .AddTypeExtension<TrackQueries>()
     .RegisterDbContext<ApplicationDbContext>(DbContextKind.Pooled)
     .AddMutationType(x => x.Name("Mutation"))
         .AddTypeExtension<SpeakerMutations>()

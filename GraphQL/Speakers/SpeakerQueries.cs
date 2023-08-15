@@ -7,9 +7,9 @@ using HotChocolate.Types;
 using HotChocolate.Types.Relay;
 using Microsoft.EntityFrameworkCore;
 
-namespace ConferencePlanner.GraphQL;
+namespace ConferencePlanner.GraphQL.Speakers;
 
-[ExtendObjectType("Query")]
+[ExtendObjectType("Query")]  //If you don't have this attribute the available queries show up in their own type in the SD.
 public class SpeakerQueries
 {
     public Task<List<Speaker>> GetSpeakersAsync(ApplicationDbContext context)
@@ -17,8 +17,8 @@ public class SpeakerQueries
         return context.Speakers.ToListAsync();
     }
 
-    public Task<Speaker> GetSpeakerAsync(
-        [ID(nameof(Speaker))] int id, //not sure this ID annotation is needed
+    public Task<Speaker> GetSpeakerByIdAsync(
+        [ID(nameof(Speaker))] int id, //this annotation is required to show in the SD that the id of the Speak is an ID 
         SpeakerByIdDataLoader dataLoader,
         CancellationToken cancellationToken)
     {
