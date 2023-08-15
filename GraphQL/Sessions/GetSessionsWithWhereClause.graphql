@@ -1,0 +1,7 @@
+﻿query GetSessionsContainingXInTitle {
+    sessions(where: { title: { contains: "Third" } }) {
+        nodes {
+            title
+        }
+    }
+}

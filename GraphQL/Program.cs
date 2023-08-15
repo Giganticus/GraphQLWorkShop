@@ -30,6 +30,8 @@ builder.Services
     .AddType<AttendeeType>()
     .AddType<TrackType>()
     .AddType<SessionType>()
+    .AddFiltering()
+    .AddSorting()
     .AddGlobalObjectIdentification()
     .AddDataLoader<SpeakerByIdDataLoader>()
     .AddDataLoader<SessionByIdDataLoader>();
