@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ConferencePlanner.GraphQL.Data;
 using ConferencePlanner.GraphQL.DataLoader;
+using ConferencePlanner.GraphQL.Extensions;
 using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,10 @@ public class TrackType : ObjectType<Track>
             .ResolveWith<TrackResolvers>(t => t.GetSessionsAsync(default!, default!, default!, default))
             .UseDbContext<ApplicationDbContext>()
             .Name("sessions");
+
+        // descriptor
+        //     .Field(t => t.Name)
+        //     .UseUpperCase();
     }
 
     private class TrackResolvers : ObjectType<Track>
