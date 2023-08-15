@@ -15,7 +15,7 @@ builder.Services
     .AddPooledDbContextFactory<ApplicationDbContext>(options => options.UseSqlite("Data Source=conferences.db"))
     .AddGraphQLServer()
     .AddQueryType(d => d.Name("Query"))
-    .AddTypeExtension<SpeakersQueries>()
+        .AddTypeExtension<SpeakerQueries>()
     .RegisterDbContext<ApplicationDbContext>(DbContextKind.Pooled)
     .AddMutationType(x => x.Name("Mutation"))
         .AddTypeExtension<SpeakerMutations>()

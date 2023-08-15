@@ -10,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 namespace ConferencePlanner.GraphQL;
 
 [ExtendObjectType("Query")]
-public class SpeakersQueries
+public class SpeakerQueries
 {
-    public Task<List<Speaker>> GetSpeakers(ApplicationDbContext context)
+    public Task<List<Speaker>> GetSpeakersAsync(ApplicationDbContext context)
     {
         return context.Speakers.ToListAsync();
     }
@@ -25,8 +25,8 @@ public class SpeakersQueries
         return dataLoader.LoadAsync(id, cancellationToken);
     }
 
-    public Task<IReadOnlyList<Speaker>> GetSpeakersByIdsAsync(
-        IReadOnlyCollection<int> ids,
+    public Task<IReadOnlyList<Speaker>> GetSpeakersByIdAsync(
+        [ID(nameof(Speaker))] IReadOnlyCollection<int> ids,
         SpeakerByIdDataLoader dataLoader,
         CancellationToken cancellationToken)
     {
