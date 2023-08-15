@@ -13,7 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddPooledDbContextFactory<ApplicationDbContext>(options => options.UseSqlite("Data Source=conferences.db"))
     .AddGraphQLServer()
-    .AddQueryType(d => d.Name("Query"))
+    .AddQueryType(d =>
+    {
+        d.Name("Query");
+        d.Description("QueryDescription");
+    })
         .AddTypeExtension<SpeakerQueries>()
         .AddTypeExtension<SessionQueries>()
         .AddTypeExtension<TrackQueries>()

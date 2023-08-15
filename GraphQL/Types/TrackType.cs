@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ConferencePlanner.GraphQL.Data;
 using ConferencePlanner.GraphQL.DataLoader;
-using ConferencePlanner.GraphQL.Extensions;
+using HotChocolate;
 using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,12 +18,13 @@ public class TrackType : ObjectType<Track>
             .ImplementsNode()
             .IdField(t => t.Id)
             .ResolveNode((ctx, id) =>
-                ctx.DataLoader<TrackByIdDataLoader>().LoadAsync(id, ctx.RequestAborted));
+                ctx.DataLoader<TrackByIdDataLoader>().LoadAsync(id, ctx.RequestAborted)!);
 
         descriptor
             .Field(t => t.Sessions)
             .ResolveWith<TrackResolvers>(t => t.GetSessionsAsync(default!, default!, default!, default))
             .UseDbContext<ApplicationDbContext>()
+            .UsePaging<NonNullType<SessionType>>()
             .Name("sessions");
 
         // descriptor
@@ -34,7 +35,7 @@ public class TrackType : ObjectType<Track>
     private class TrackResolvers : ObjectType<Track>
     {
         public async Task<IEnumerable<Session>> GetSessionsAsync(
-            Track track,
+            [Parent] Track track,
             ApplicationDbContext dbContext,
             SessionByIdDataLoader sessionById,
             CancellationToken cancellationToken)
