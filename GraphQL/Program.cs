@@ -6,7 +6,6 @@ using ConferencePlanner.GraphQL.Speakers;
 using ConferencePlanner.GraphQL.Tracks;
 using ConferencePlanner.GraphQL.Types;
 using HotChocolate.Data;
-using HotChocolate.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,13 +31,14 @@ builder.Services
         .AddTypeExtension<TrackMutations>()
     .AddSubscriptionType(d => d.Name("Subscription"))
         .AddTypeExtension<SessionSubscriptions>()
+        .AddTypeExtension<AttendeeSubscriptions>()
     .AddType<SpeakerType>()
     .AddType<AttendeeType>()
     .AddType<TrackType>()
     .AddType<SessionType>()
     .AddFiltering()
     .AddSorting()
-    .AddInMemorySubscriptions()
+    .AddInMemorySubscriptions() 
     .AddGlobalObjectIdentification()
     .AddDataLoader<SpeakerByIdDataLoader>()
     .AddDataLoader<SessionByIdDataLoader>();
