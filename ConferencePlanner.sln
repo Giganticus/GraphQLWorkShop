@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL", "GraphQL\GraphQL.csproj", "{FFD17728-5E82-44AC-ADD5-C30E9798EB4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.Tests", "GraphQL.Tests\GraphQL.Tests.csproj", "{4403A436-3748-42A8-ADA3-A6FA960CFBDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{FFD17728-5E82-44AC-ADD5-C30E9798EB4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFD17728-5E82-44AC-ADD5-C30E9798EB4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFD17728-5E82-44AC-ADD5-C30E9798EB4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4403A436-3748-42A8-ADA3-A6FA960CFBDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4403A436-3748-42A8-ADA3-A6FA960CFBDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4403A436-3748-42A8-ADA3-A6FA960CFBDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4403A436-3748-42A8-ADA3-A6FA960CFBDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
